@@ -7,11 +7,13 @@ void setup(){
     SCH_Init();
     timerInit();
 
-    SCH_Add_Task(fsm_run, 0, 100); 
+    // these 2 are meant to trigger every cycle
+    SCH_Add_Task(fsm_run, 0, 1); 
+    SCH_Add_Task(timerRun, 0, 1);
 }
 
 void loop(){
     SCH_Update();
     SCH_Dispatch_Tasks();
-    delay(1); // Prevent watchdog timer reset
+    delay(10); // Prevent watchdog timer reset
 }

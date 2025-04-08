@@ -23,6 +23,7 @@ void fsm_run(){
         case INIT:
             fsm_status = LED_ON;
             setTimer(0, T_on);
+            pinMode(LED_PIN, OUTPUT);
             break;
         case LED_ON:
             led_on();
