@@ -4,12 +4,7 @@
 int timer_counter[NUM_TIMERS];
 int timer_flag[NUM_TIMERS];
 
-void timerInit() {
-    for (int i = 0; i < NUM_TIMERS; i++) {
-        timer_counter[i] = 0;
-        timer_flag[i] = 0;
-    }
-}
+
 
 void setTimer(int index, int value) {
     if (index < NUM_TIMERS) {
