@@ -8,8 +8,8 @@ void setup(){
     timerInit();
 
     // these 2 are meant to trigger every cycle
-    SCH_Add_Task(fsm_run, 0, 1); 
-    SCH_Add_Task(timerRun, 0, 1);
+    SCH_Add_Task(fsm_run, 0, 1); // state machine
+    SCH_Add_Task(timerRun, 0, 1); // software timer
 }
 
 void loop(){
