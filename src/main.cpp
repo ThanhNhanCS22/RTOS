@@ -1,7 +1,6 @@
-#include "scheduler.h"
-#include "fsm_cx1.h"
-#include "softwareTimer.h"
-#include "Arduino.h"
+
+// #include "Traffic_light.h"
+#include "Analogue_clock.h" 
 
 void setup(){
     SCH_Init();
