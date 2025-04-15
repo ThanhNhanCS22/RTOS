@@ -74,8 +74,7 @@ void fsm_run(){
         case 1:
             // check if the timer has expired
             if (getTimer(0) == 1000) {
-                timeSeconds += 1; // increment the time in seconds
-                if (timeSeconds >= 43200) timeSeconds = 0; // reset after 12 hours
+                timeSeconds = (timeSeconds + 1) % 43200; // increment the time in seconds
                 
                 // update the hands based on the time in seconds
                 Hhd = (timeSeconds / 3600); // hour hand, 1 hour per position
