@@ -35,7 +35,7 @@ void lightSwitch(int Lcode, int colour){
 }
 
 // PHASES: 0, 1 [10-8], 2 [7-6], 3 [5-3], 4 [2-1]
-void fsm_run(){
+void trafficLightTask(){
     switch(fsm_status){
         case 0:
             fsm_status = 1;

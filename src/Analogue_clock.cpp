@@ -65,12 +65,12 @@ void clockSwitch(int position, int colour  ){
 
 int timeSeconds = 0; // 0 to 43200 (12 hours)
 int Hhd = 0, Mhd = 0, Shd = 0; // hands: hours, minutes, seconds
-int fsm_status = 0; 
+int clock_status = 0; 
 
-void fsm_run(){
-    switch(fsm_status){
+void analogueClockTask(){
+    switch(clock_status){
         case 0:
-            fsm_status = 1;
+            clock_status = 1;
             setTimer(0, 100);
             // initialise the lights
             pinMode(D3, OUTPUT); pinMode(D4, OUTPUT); 
@@ -79,7 +79,7 @@ void fsm_run(){
             pinMode(D9, OUTPUT); pinMode(D10, OUTPUT);
             
           
-            clockSwitch( 0  , 0 ); 
+            clockSwitch( 0, 0 ); 
             
            
             break;
@@ -87,6 +87,7 @@ void fsm_run(){
         case 1:
             
             if (!isTimerExpired(0 ) ) break ;
+          
             timeSeconds++ ; 
             Hhd = (timeSeconds  / 3600) % 12    ; 
             Mhd =  (timeSeconds  / 60)  %60    ; 
@@ -95,6 +96,7 @@ void fsm_run(){
             clockSwitch( ((Hhd - 1 + 12) %12)/3 ,3  ); 
             clockSwitch(Hhd/3  , Hhd%3 ); 
 
+       
             if(  ((Mhd - 1 + 60 ) %60)/15 != Hhd/3 ) ; 
                 clockSwitch(  ((Mhd - 1 + 60 ) %60)/ 15,   3   ) ; 
             clockSwitch( Mhd/15,   (Mhd/5)%3 ) ;
