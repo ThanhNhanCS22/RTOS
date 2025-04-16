@@ -11,10 +11,10 @@
 #define L_YELLOW 2
 #define L_GREEN 3
 
-int fsm_status = 0;
+int lightStatus = 0;
 
 void lightSwitch(int Lcode, int colour){
-    // Lcode is here D3 or D5, respectively
+
     switch(colour){
         case L_RED:
             digitalWrite(Lcode, HIGH);
@@ -28,45 +28,55 @@ void lightSwitch(int Lcode, int colour){
             digitalWrite(Lcode, HIGH);
             digitalWrite(Lcode + 1, LOW);
             break;
-        default: // 0: turn off
+        default:
             digitalWrite(Lcode, LOW);
             digitalWrite(Lcode + 1, LOW);
     }
 }
 
-// PHASES: 0, 1 [10-8], 2 [7-6], 3 [5-3], 4 [2-1]
 void trafficLightTask(){
-    switch(fsm_status){
+    switch(lightStatus){
         case 0:
-            fsm_status = 1;
-            setTimer(0, T_light);
-            // initialise the lights
+            lightStatus = 1;
+      
             pinMode(D3, OUTPUT); 
             pinMode(D4, OUTPUT); 
             pinMode(D5, OUTPUT); 
             pinMode(D6, OUTPUT); 
+            lightSwitch(D3, L_RED); 
+            lightSwitch(D5, L_GREEN);
+            setTimer(0,300);  
             break;
         case 1: 
-            lightSwitch(D3, L_RED); lightSwitch(D5, L_GREEN);
-            if (getTimer(0) == 700) fsm_status = 2;
+            if( !(isTimerExpired(0)) ) break ; 
+            lightSwitch(D3, L_RED); 
+            lightSwitch(D5, L_YELLOW);
+            setTimer(0,200);  
+            lightStatus = 2 ; 
             break;
         case 2:
-            lightSwitch(D5, L_YELLOW);
-            if (getTimer(0) == 500) fsm_status = 3;
+            if( !(isTimerExpired(0)) ) break ; 
+            lightSwitch(D3, L_GREEN); 
+            lightSwitch(D5, L_RED);
+            setTimer(0,300);  
+            lightStatus = 3 ; 
             break;
         case 3:
-            lightSwitch(D3, L_GREEN); lightSwitch(D5, L_RED);
-            if (getTimer(0) == 200) fsm_status = 4;
+            if( !(isTimerExpired(0)) ) break ; 
+            lightSwitch(D3, L_YELLOW); 
+            lightSwitch(D5, L_RED);
+            setTimer(0,200);  
+            lightStatus = 4 ; 
             break;
         case 4:
-            lightSwitch(D3, L_YELLOW);
-            if (isTimerExpired(0)){
-                fsm_status = 1;
-                setTimer(0, T_light);
-            }
+            if( !(isTimerExpired(0)) ) break ; 
+            lightSwitch(D3, L_RED); 
+            lightSwitch(D5, L_GREEN);
+            setTimer(0,300);  
+            lightStatus = 1 ; 
             break;
         default: 
-            fsm_status = 0;
+            lightStatus = 0;
             break;
     }
 }

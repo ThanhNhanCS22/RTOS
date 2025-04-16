@@ -18,11 +18,7 @@ void setTimer(int index, int value) {
     }
 }
 
-int getTimer(int index){ // how much time left
-    if (index < NUM_TIMERS)
-        return timer_counter[index];
-    return -1; // Invalid index
-}
+
 
 int isTimerExpired(int index) {
     if (index < NUM_TIMERS) {
