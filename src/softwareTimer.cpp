@@ -21,11 +21,9 @@ int getTimer(int index){ // how much time left
 
 int isTimerExpired(int index) {
     if (index < NUM_TIMERS) {
-        if (timer_counter[index] == 0) {
-            timer_flag[index] = 1;
+        if (timer_flag[index] == 1) {
+            timer_flag[index] = 0;
             return 1;
-        } else {
-            timer_counter[index]--;
         }
     }
     return 0;

@@ -1,5 +1,5 @@
 #include "softwareTimer.h"
-#include "fsm_cx1.h"
+#include "traffic_light.h"
 #include "Arduino.h"
 
 #define D3 6
@@ -35,7 +35,7 @@ void lightSwitch(int Lcode, int colour){
 }
 
 
-void fsm_run(){
+void trafficLightRun(){
     switch(fsm_status){
         case 0:
             fsm_status = 1;
