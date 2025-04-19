@@ -33,7 +33,7 @@ hw_timer_t *Timer0_Cfg = NULL;
 
 
 void SCH_Init(void){
-	//TIMER_Init();
+	TIMER_Init();
   
 }
 
@@ -157,9 +157,15 @@ void IRAM_ATTR Timer0_ISR()
 }
 
 void static TIMER_Init(){
-	
-}
+	//Create timer 0, prescaler = 800 and countup = true
+	Timer0_Cfg = timerBegin(0, 800, true); // 80M / prescaler 800 = 0.1M = 10 mus
+  	//Create timer interrupt 
+	timerAttachInterrupt(Timer0_Cfg, &Timer0_ISR, true);
 
+	//with auto reload counter = true and the counter value = 1000
+  	timerAlarmWrite(Timer0_Cfg, 1000, true); //Set the counter to 1000 * 10mu = 10ms
+  	timerAlarmEnable(Timer0_Cfg);
+}
 
 #ifdef __cplusplus
 }   

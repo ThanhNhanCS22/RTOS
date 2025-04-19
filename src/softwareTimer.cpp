@@ -4,12 +4,7 @@
 int timer_counter[NUM_TIMERS];
 int timer_flag[NUM_TIMERS];
 
-void timerInit() {
-    for (int i = 0; i < NUM_TIMERS; i++) {
-        timer_counter[i] = 0;
-        timer_flag[i] = 0;
-    }
-}
+
 
 void setTimer(int index, int value) {
     if (index < NUM_TIMERS) {
@@ -22,11 +17,9 @@ void setTimer(int index, int value) {
 
 int isTimerExpired(int index) {
     if (index < NUM_TIMERS) {
-        if (timer_counter[index] == 0) {
-            timer_flag[index] = 1;
+        if (timer_flag[index] == 1) {
+            timer_flag[index] = 0;
             return 1;
-        } else {
-            timer_counter[index]--;
         }
     }
     return 0;

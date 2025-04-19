@@ -1,18 +1,30 @@
 
 // #include "Traffic_light.h"
-#include "Analogue_clock.h" 
-#include "Blinky_led.h" 
-void setup(){
-    SCH_Init();
-    timerInit();
+// #include "HTSensor.h"
+#include "Blinky_led.h"
+#include "Heater.h"
+#include "cooler.h"
+#include "humidifier.h"
 
-    SCH_Add_Task(blinkyLedTask, 0, 1);
-    SCH_Add_Task(analogueClockTask, 0, 1); 
+
+void setup(){
+   
+
+ 
+    SCH_Init();
+    
     SCH_Add_Task(timerRun, 0, 1); 
+    SCH_Add_Task(blinkyLedRun, 0, 100);
+    SCH_Add_Task(HTSensor_Read, 0 , 500) ; 
+    SCH_Add_Task(humidifierRun, 0 , 1 ) ; 
+    SCH_Add_Task(heaterRun, 0 , 100 ) ; 
+    SCH_Add_Task(coolerRun, 0 , 1 ) ; 
+    
+
 }
 
 void loop(){
-    SCH_Update();
+
     SCH_Dispatch_Tasks();
-    delay(10); 
+      
 }
