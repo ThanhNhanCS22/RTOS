@@ -1,35 +1,36 @@
 #include "cooler.h"
 
-boolean  isInitedCooler  = false  ; 
-boolean isCoolerTurnOn = false ; 
+
+int coolerStatus  ; 
 
 void coolerRun() {
-    if(!isInitedCooler ){
-        isInitedCooler = true ; 
-        pinMode(GPIO_NUM_8, OUTPUT); 
-        pinMode(GPIO_NUM_9 , OUTPUT) ; 
-    } 
-    switch(isCoolerTurnOn){
-        case false : 
-            if(currTem > THRESHOLD_NORMAL) {
-                digitalWrite(coolerPin1, HIGH ) ; 
-                digitalWrite(coolerPin2, LOW) ; 
-                isCoolerTurnOn = true ; 
+    switch (coolerStatus) { 
+        case Init : 
+            initializeLight(coolerPin1, coolerPin2) ;  
+            coolerStatus = 1 ; 
+            setTimer(0,500) ;  
+            break ; 
+         
+        
+        case 1 : 
+            if(!isTimerExpired(0) ) break ;  
+
+            float temperature  = getSensorTemVal() ; 
+
+            if(temperature > THRESHOLD_NORMAL) {
+                lightRun(coolerPin1, coolerPin2, green) ;
+                coolerStatus = 2 ;   
                 setTimer(0,500);  
             }
-            else{
 
-                digitalWrite(coolerPin1, LOW ) ; 
-                digitalWrite(coolerPin2, LOW) ; 
-                
-            }
-            
+            else lightStop(coolerPin1, coolerPin2 ) ;     
             break; 
-        case true : 
-            if(!isTimerExpired(0)) break ; 
-            isCoolerTurnOn = false ; 
-    }
 
+        case 2 : 
+            if(!isTimerExpired(0)) break ; 
+            coolerStatus = 1 ; 
+            break ; 
+    }
 
     
     

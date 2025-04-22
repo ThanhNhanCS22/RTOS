@@ -8,33 +8,31 @@ void humidLightStop( ){
     digitalWrite(humidPin2, LOW) ;
 }
 
-boolean humidLightRun(){
-    switch(humidLightStatus) {
-        case 0  : 
-            digitalWrite(humidPin1, HIGH) ; 
-            digitalWrite(humidPin2, LOW) ; 
-            humidLightStatus = 1 ; 
-            setTimer(1,500 ) ; 
-            break; 
-        case 1 : 
-            if(!isTimerExpired(1) ) break ; 
-            digitalWrite(humidPin1, LOW) ; 
-            digitalWrite(humidPin2, HIGH) ;
-            humidLightStatus = 2 ;
-            setTimer(1,300) ; 
-            break ; 
-        case 2 :
-            if(!isTimerExpired(1) ) break ; 
-            digitalWrite(humidPin1, HIGH) ; 
-            digitalWrite(humidPin2, HIGH) ;
-            humidLightStatus = 3 ;
-            setTimer(1,200) ; 
-            break ; 
-        case 3 : 
-            if(!isTimerExpired(1) ) break ; 
-            humidLightStatus = 0 ; 
-            return true ; 
-
-    } 
-    return false ; 
+void intializeLight(int pin1, int pin2) {
+    pinMode(pin1, OUTPUT) ; 
+    pinMode(pin2, OUTPUT) ; 
 }
+
+
+ void lightRun(int pin1, int pin2, int color ){
+       if(color == green ) {
+            digitalWrite(pin1, HIGH)  ; 
+            digitalWrite(pin2, LOW )  ; 
+       }
+       if (color == yellow ){
+            digitalWrite(pin1, LOW)  ; 
+            digitalWrite(pin2, HIGH)  ; 
+       } 
+       if(color == red ) {
+            digitalWrite(pin1, HIGH ) ;
+            digitalWrite(pin2, HIGH)  ; 
+       }
+}
+
+void lightStop(int pin1, int pin2){
+
+    digitalWrite(pin1, HIGH)  ; 
+    digitalWrite(pin2, LOW )  ; 
+} 
+    
+

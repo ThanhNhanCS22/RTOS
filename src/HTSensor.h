@@ -18,3 +18,5 @@ extern float currTem ;
 extern float currHumid ; 
 
 void HTSensor_Read() ; 
+float  getSensorTemVal() ; 
+float getSensorHumidVal() ; 

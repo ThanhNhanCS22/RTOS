@@ -16,9 +16,9 @@ void HTSensor_Read() {
             dht20.read();
 
             // Reading temperature in Celsius
-            currTem = dht20.getTemperature();
+            currTem = getSensorTemVal() ; 
             // Reading humidity
-            currHumid = dht20.getHumidity();
+            currHumid = getSensorHumidVal( ) ; 
         
             // Check if any reads failed and exit early
             if (isnan(currTem) || isnan(currHumid)) {
@@ -35,4 +35,12 @@ void HTSensor_Read() {
 
         
 
+}
+
+float getSensorTemVal() { 
+    return dht20.getTemperature();
+}
+
+float getSensorHumidVal() {
+    return dht20.getHumidity(); 
 }

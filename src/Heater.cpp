@@ -3,27 +3,25 @@
 
 
 boolean isInitedHeater = false ; 
+
 void heaterRun() {
     if(!isInitedHeater){
-        pinMode(GPIO_NUM_6, OUTPUT); 
-        pinMode(GPIO_NUM_7 , OUTPUT) ; 
+        initializeLight(heaterPin1, heaterPin2);   
         isInitedHeater = true ; 
-
+        
+        
     } 
+    int temperature = getSensorTemVal() ; 
 
-    if(currTem <= THRESHOLD_NORMAL  ) {
-        digitalWrite(heaterPin1, HIGH ) ;
-        digitalWrite(heaterPin2 , LOW ) ;
+    if(temperature <= THRESHOLD_NORMAL  ) {
+        lightRun(heaterPin1, heaterPin2,green );  
     }  
-    if(currTem < THRESHOLD_LOW || currTem >THRESHOLD_NORMAL   ) {
-        digitalWrite(heaterPin1, LOW ) ;
-        digitalWrite(heaterPin2 , HIGH ) ;
+    if(temperature < THRESHOLD_LOW || temperature >THRESHOLD_NORMAL   ) {
+        lightRun(heaterPin1, heaterPin2,yellow );  
+        
     }
-    if(currTem < THRESHOLD_FREEZEING || currTem > THRESHOLD_HOT ){
-        digitalWrite(heaterPin1, HIGH ) ;
-        digitalWrite(heaterPin2 , HIGH) ;
+    if(temperature < THRESHOLD_FREEZEING || temperature > THRESHOLD_HOT ){
+        lightRun(heaterPin1, heaterPin2,red );
+
     } 
-
-
-    
 }
