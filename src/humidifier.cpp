@@ -1,8 +1,12 @@
 #include "humidifier.h"
 #include "light_control.h"
 
-int humidifierStatus  = Init ; 
+#define humidPin1 GPIO_NUM_10
+#define humidPin2 GPIO_NUM_17
+#define Init 0 
 
+
+int humidifierStatus  = Init ; 
 
 void humidifierRun() {
 
@@ -16,10 +20,10 @@ void humidifierRun() {
         
 
        
-        case 1 : 
+        case 1 : {
             if(!isTimerExpired(1) ) break ; 
 
-            int humidity = getSensorHumidVal(); 
+            float humidity = getSensorHumidVal(); 
             
             if (humidity < HUMID_THRESHOLD) {
              
@@ -28,24 +32,29 @@ void humidifierRun() {
                 setTimer(1, 500 ) ;  
             }
             break ; 
+        }
             
-        case 2  : 
+        case 2  : {
             if(!isTimerExpired(1) ) break ;  
             lightRun(humidPin1, humidPin2, yellow) ; 
             setTimer(1, 300) ;
             humidifierStatus = 3 ;
             break ;  
+        }
             
-        case 3 : 
+        case 3 : {
             if(!isTimerExpired(1) ) break ;  
             lightRun(humidPin1, humidPin2, red) ; 
             setTimer(1, 200) ;
             humidifierStatus = 4 ;
-            break ; 
-        default : 
+            break ;
+        }
+
+        default : {
             if(!isTimerExpired(1) ) break ;  
             lightStop(humidPin1, humidPin2) ; 
             humidifierStatus = 1 ;  
+        }
         
     }
 }

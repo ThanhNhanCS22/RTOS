@@ -11,11 +11,9 @@
 #define THRESHOLD_HOT 40 
 
 
-#define HUMID_THRESHOLD 52  
+#define HUMID_THRESHOLD 52 
 
 extern DHT20 dht20;
-
-
 
 void HTSensor_Read() ; 
 float  getSensorTemVal() ; 

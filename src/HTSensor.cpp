@@ -1,5 +1,7 @@
 #include "HTSensor.h" 
 
+ 
+
 boolean isInitedSensor = false ; 
 DHT20 dht20 ;
 float currTem ; 

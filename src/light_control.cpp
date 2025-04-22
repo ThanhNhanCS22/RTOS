@@ -3,12 +3,7 @@
 
 int humidLightStatus = 0 ; 
 
-void humidLightStop( ){
-    digitalWrite(humidPin1, LOW) ; 
-    digitalWrite(humidPin2, LOW) ;
-}
-
-void intializeLight(int pin1, int pin2) {
+void initializeLight(int pin1, int pin2) {
     pinMode(pin1, OUTPUT) ; 
     pinMode(pin2, OUTPUT) ; 
 }
