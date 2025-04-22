@@ -28,6 +28,7 @@ void humidifierRun() {
                 setTimer(1, 500 ) ;  
             }
             break ; 
+            
         case 2  : 
             if(!isTimerExpired(1) ) break ;  
             lightRun(humidPin1, humidPin2, yellow) ; 
