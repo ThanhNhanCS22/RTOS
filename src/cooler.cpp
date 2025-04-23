@@ -4,6 +4,8 @@
 #define coolerPin1 GPIO_NUM_8
 #define coolerPin2 GPIO_NUM_9
 #define Init 0 
+#define checkingStage 1  
+#define runningStage 2 
 
 int coolerStatus = Init; 
 
@@ -17,7 +19,7 @@ void coolerRun() {
             break;
         }
          
-        case 1 : {
+        case checkingStage : {
             if(!isTimerExpired(0)) break;  
 
             float temperature = getSensorTemVal(); 
@@ -35,7 +37,7 @@ void coolerRun() {
             break;
         }
 
-        case 2 : {
+        case runningStage : {
             if(!isTimerExpired(0)) break; 
             coolerStatus = 1; 
             break; 

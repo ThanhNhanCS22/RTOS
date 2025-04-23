@@ -4,7 +4,10 @@
 #define humidPin1 GPIO_NUM_10
 #define humidPin2 GPIO_NUM_17
 #define Init 0 
-
+#define checkingStage 1 
+#define greenStage 2 
+#define yellowStage 3 
+#define redStage 4 
 
 int humidifierStatus  = Init ; 
 
@@ -20,7 +23,7 @@ void humidifierRun() {
         
 
        
-        case 1 : {
+        case checkingStage : {
             if(!isTimerExpired(1) ) break ; 
 
             float humidity = getSensorHumidVal(); 
@@ -34,7 +37,7 @@ void humidifierRun() {
             break ; 
         }
             
-        case 2  : {
+        case greenStage  : {
             if(!isTimerExpired(1) ) break ;  
             lightRun(humidPin1, humidPin2, yellow) ; 
             setTimer(1, 300) ;
@@ -42,7 +45,7 @@ void humidifierRun() {
             break ;  
         }
             
-        case 3 : {
+        case yellowStage : {
             if(!isTimerExpired(1) ) break ;  
             lightRun(humidPin1, humidPin2, red) ; 
             setTimer(1, 200) ;
@@ -50,7 +53,7 @@ void humidifierRun() {
             break ;
         }
 
-        default : {
+        case redStage : {
             if(!isTimerExpired(1) ) break ;  
             lightStop(humidPin1, humidPin2) ; 
             humidifierStatus = 1 ;  
