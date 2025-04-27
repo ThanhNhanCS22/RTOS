@@ -23,9 +23,9 @@ void coolerRun() {
         case checkingStage : {
             if(!isTimerExpired(0)) break;  
 
-            float temperature = getSensorTemVal(); 
+            float currTemperature = getSensorTemVal(); 
 
-            if(temperature > THRESHOLD_NORMAL)  coolerStatus = turnCoolerOnStage;   
+            if(currTemperature > THRESHOLD_NORMAL)  coolerStatus = turnCoolerOnStage;   
             
             else coolerStatus = turnCoolerOffStage ; 
             
