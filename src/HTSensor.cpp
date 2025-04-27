@@ -1,44 +1,48 @@
 #include "HTSensor.h" 
 
- 
+#define  init 0 
+#define sensorRunningStage 1 
 
-boolean isInitedSensor = false ; 
+
 DHT20 dht20 ;
-float currTem ; 
-float currHumid; 
+int sensorStatus = init ; 
 
 void HTSensor_Read() {
-            if(!isInitedSensor ){
+        switch(sensorStatus) {
+            case(init) : {
                 Serial.begin(115200); 
                 Wire.begin(GPIO_NUM_11, GPIO_NUM_12); 
                 
                 dht20.begin();
-                isInitedSensor = true ; 
+                sensorStatus = sensorRunningStage ; 
+                break; 
+                
 
             } 
-    
-            dht20.read();
 
-            // Reading temperature in Celsius
-            currTem = getSensorTemVal() ; 
-            // Reading humidity
-            currHumid = getSensorHumidVal( ) ; 
-        
-            // Check if any reads failed and exit early
-            if (isnan(currTem) || isnan(currHumid)) {
-                Serial.println("Failed to read from DHT sensor!");
-                return;
+            case(sensorRunningStage) :  { 
+                dht20.read();
+
+                // Reading temperature in Celsius
+                float currTem = getSensorTemVal() ; 
+                // Reading humidity
+                float currHumid = getSensorHumidVal( ) ; 
+            
+                // Check if any reads failed and exit early
+                if (isnan(currTem) || isnan(currHumid)) {
+                    Serial.println("Failed to read from DHT sensor!");
+                    return;
+                }
+            
+                // Print the results 
+                Serial.print("Humidity: ");
+                Serial.print(currHumid);
+                Serial.print("% Temperature: ");
+                Serial.print(currTem);
+                Serial.println("°C");
             }
         
-            // Print the results 
-            Serial.print("Humidity: ");
-            Serial.print(currHumid);
-            Serial.print("% Temperature: ");
-            Serial.print(currTem);
-            Serial.println("°C");
-
-        
-
+        }
 }
 
 float getSensorTemVal() { 

@@ -3,35 +3,40 @@
 
 #define humidPin1 GPIO_NUM_10
 #define humidPin2 GPIO_NUM_17
-#define Init 0 
+#define init 0 
 #define checkingStage 1 
 #define greenStage 2 
 #define yellowStage 3 
 #define redStage 4 
+#define waitingStage 5 
 
-int humidifierStatus  = Init ; 
+int humidifierStatus  = init ; 
 
 void humidifierRun() {
 
     switch (humidifierStatus) {
 
-        case Init : 
+        case init : 
             initializeLight(humidPin1,humidPin2 ); 
-            humidifierStatus = 1;
-            setTimer(1,500); 
+            humidifierStatus = waitingStage;
+            setTimer(1,499) ; 
             break;
         
 
-       
-        case checkingStage : {
+        case waitingStage : {
             if(!isTimerExpired(1) ) break ; 
-
-            float humidity = getSensorHumidVal(); 
+            humidifierStatus =  checkingStage ;
+            break ; 
+        }
+        case checkingStage : {
             
-            if (humidity < HUMID_THRESHOLD) {
+
+            float currHumidity = getSensorHumidVal(); 
+            
+            if (currHumidity < HUMID_THRESHOLD) {
              
                 lightRun(humidPin1, humidPin2, green);   
-                humidifierStatus =  2 ; 
+                humidifierStatus =  greenStage ; 
                 setTimer(1, 500 ) ;  
             }
             break ; 
@@ -41,7 +46,7 @@ void humidifierRun() {
             if(!isTimerExpired(1) ) break ;  
             lightRun(humidPin1, humidPin2, yellow) ; 
             setTimer(1, 300) ;
-            humidifierStatus = 3 ;
+            humidifierStatus = yellowStage ;
             break ;  
         }
             
@@ -49,14 +54,14 @@ void humidifierRun() {
             if(!isTimerExpired(1) ) break ;  
             lightRun(humidPin1, humidPin2, red) ; 
             setTimer(1, 200) ;
-            humidifierStatus = 4 ;
+            humidifierStatus = redStage ;
             break ;
         }
 
         case redStage : {
             if(!isTimerExpired(1) ) break ;  
             lightStop(humidPin1, humidPin2) ; 
-            humidifierStatus = 1 ;  
+            humidifierStatus = checkingStage ;  
         }
         
     }

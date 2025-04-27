@@ -10,15 +10,16 @@ void blinkyLedRun() {
     switch(ledStatus) {
         case init  : 
             pinMode(ledPin  , OUTPUT ) ;
-            ledStatus = 1 ;   
-           
-        case off :   
-            digitalWrite(ledPin, LOW ) ;
-            ledStatus = 2  ; 
+            ledStatus = on ;   
             break ; 
-        case on : 
-            digitalWrite(ledPin, HIGH ) ;
-            ledStatus = 1   ; 
+           
+        case on  :   
+            digitalWrite(ledPin, HIGH) ;
+            ledStatus = off  ; 
+            break ; 
+        case off : 
+            digitalWrite(ledPin, LOW ) ;
+            ledStatus = on    ; 
             break ; 
           
     } 
