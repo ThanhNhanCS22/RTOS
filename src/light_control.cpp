@@ -26,7 +26,7 @@ void initializeLight(int pin1, int pin2) {
 
 void lightStop(int pin1, int pin2){
 
-    digitalWrite(pin1, HIGH)  ; 
+    digitalWrite(pin1, LOW)  ; 
     digitalWrite(pin2, LOW )  ; 
 } 
     

@@ -16,12 +16,12 @@ void coolerRun() {
         case Init : {
             initializeLight(coolerPin1, coolerPin2) ;  
             coolerStatus = checkingStage; 
-            setTimer(0,500);  
+            // setTimer(0,500);  
             break;
         }
          
         case checkingStage : {
-            if(!isTimerExpired(0)) break;  
+            // if(!isTimerExpired(0)) break;  
 
             float currTemperature = getSensorTemVal(); 
 

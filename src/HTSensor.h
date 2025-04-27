@@ -11,7 +11,7 @@
 #define THRESHOLD_HOT 40 
 
 
-#define HUMID_THRESHOLD 52 
+#define HUMID_THRESHOLD 65
 
 extern DHT20 dht20;
 

@@ -37,14 +37,14 @@ void heaterRun() {
         case run : {
 
             float temperature = getSensorTemVal() ; 
-            float currTemperature  = determineStage(temperature) ; 
-            if(currTemperature == safe){
+            int currTemperatureStage   = determineStage(temperature) ; 
+            if(currTemperatureStage == safe){
                 lightRun(heaterPin1 , heaterPin2, green) ;
             } 
-            if (currTemperature == risk ){
+            if (currTemperatureStage == risk ){
                 lightRun(heaterPin1 , heaterPin2, yellow) ;
             } 
-            if(currTemperature = dangerous ){
+            if(currTemperatureStage == dangerous ){
                 lightRun(heaterPin1 , heaterPin2, red) ;
             } 
              
