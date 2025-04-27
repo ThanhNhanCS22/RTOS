@@ -7,7 +7,7 @@
 #define safe 1  
 #define risk 2 
 #define dangerous 3 
-#define getTemperatureStage 4 
+#define run  4 
 
 int heaterStatus = init ; 
 
@@ -30,33 +30,24 @@ void heaterRun() {
     switch(heaterStatus ){
         case init : {
             initializeLight(heaterPin1,heaterPin2) ; 
-            heaterStatus = getTemperatureStage ; 
+            heaterStatus = run ; 
             break ; 
         }
         
-        case getTemperatureStage : {
+        case run : {
 
             float temperature = getSensorTemVal() ; 
-            heaterStatus = determineStage(temperature) ; 
-        }
-
-        case safe : {
-            lightRun(heaterPin1 , heaterPin2, green) ;
-            heaterStatus = getTemperatureStage ;
-            break ; 
-        }
-        
-        case risk : {
-
-            lightRun(heaterPin1 , heaterPin2, yellow) ;
-            heaterStatus = getTemperatureStage ;
-            break ; 
-        }
-        
-        case dangerous :{
-            lightRun(heaterPin1 , heaterPin2, red) ;
-            heaterStatus = getTemperatureStage ;
-            break ; 
+            float currTemperature  = determineStage(temperature) ; 
+            if(currTemperature == safe){
+                lightRun(heaterPin1 , heaterPin2, green) ;
+            } 
+            if (currTemperature == risk ){
+                lightRun(heaterPin1 , heaterPin2, yellow) ;
+            } 
+            if(currTemperature = dangerous ){
+                lightRun(heaterPin1 , heaterPin2, red) ;
+            } 
+             
         }
 
     }

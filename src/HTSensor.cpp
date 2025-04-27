@@ -9,10 +9,12 @@ float currHumid;
 
 void HTSensor_Read() {
             if(!isInitedSensor ){
-                Wire.begin(GPIO_NUM_11, GPIO_NUM_12); 
                 Serial.begin(115200); 
+                Wire.begin(GPIO_NUM_11, GPIO_NUM_12); 
+                
                 dht20.begin();
                 isInitedSensor = true ; 
+
             } 
     
             dht20.read();
@@ -28,7 +30,7 @@ void HTSensor_Read() {
                 return;
             }
         
-            // Print the results
+            // Print the results 
             Serial.print("Humidity: ");
             Serial.print(currHumid);
             Serial.print("% Temperature: ");
