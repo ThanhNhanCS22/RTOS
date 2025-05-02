@@ -1,5 +1,5 @@
 #include "cooler.h"
-#include "light_control.h"
+
 
 #define coolerPin1 GPIO_NUM_8
 #define coolerPin2 GPIO_NUM_9

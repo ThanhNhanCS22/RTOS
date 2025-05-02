@@ -40,6 +40,8 @@ void HTSensor_Read() {
                 Serial.print("% Temperature: ");
                 Serial.print(currTem);
                 Serial.println("°C");
+
+                break ; 
             }
         
         }

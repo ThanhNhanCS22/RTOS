@@ -1,5 +1,5 @@
 #include "humidifier.h"
-#include "light_control.h"
+ 
 
 #define humidPin1 GPIO_NUM_10
 #define humidPin2 GPIO_NUM_17
@@ -62,6 +62,7 @@ void humidifierRun() {
             if(!isTimerExpired(1) ) break ;  
             lightStop(humidPin1, humidPin2) ; 
             humidifierStatus = checkingStage ;  
+            break ; 
         }
         
     }

@@ -14,17 +14,25 @@ int heaterStatus = init ;
 
 int determineStage(float temperature){
 
-    if(temperature <= THRESHOLD_NORMAL && temperature >= THRESHOLD_LOW   ) {
-        return safe  ; 
+    int temperatureStatus  ; 
 
-    }  
-    if((temperature < THRESHOLD_LOW && temperature >= THRESHOLD_FREEZEING) 
-        || (temperature >THRESHOLD_NORMAL  && temperature <= THRESHOLD_HOT )  ) {
-        return risk ;   
+    if(temperature <= THRESHOLD_NORMAL    ) 
+        temperatureStatus = safe   ; 
+
+    
+    if(temperature < THRESHOLD_LOW ||
+        temperature >THRESHOLD_NORMAL   ) 
+        temperatureStatus = risk ;   
         
-    }
+    
 
-    return dangerous; 
+    if(temperature <= THRESHOLD_FREEZEING  || 
+        temperature >= THRESHOLD_HIGH  ) 
+        temperatureStatus = dangerous ; 
+    
+    
+    return temperatureStatus ; 
+
 }
 
 void heaterRun() {

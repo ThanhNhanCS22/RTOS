@@ -3,6 +3,6 @@
 
 
 #include "HTSensor.h"
-#include "light_control.h"
+#include "lightControl.h"
 
 void coolerRun() ;  

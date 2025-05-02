@@ -1,5 +1,5 @@
 
-#include "light_control.h"
+#include "lightControl.h"
 
 int humidLightStatus = 0 ; 
 
@@ -30,4 +30,3 @@ void lightStop(int pin1, int pin2){
     digitalWrite(pin2, LOW )  ; 
 } 
     
-
